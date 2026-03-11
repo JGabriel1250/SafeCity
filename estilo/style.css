@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to bottom, #273549, #1c3763, #485363) no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: white;
+}
+
+header h1{
+    background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    text-shadow: none;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+label {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+select, #bairro{
+    border: none;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 10px;
+    font-size: 1rem;
+    width: 20%;
+}
+
+#buscar {
+    width: 30%;
+    max-width: 200px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff6b6b;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 50px;
+    align-self: center;
+}
+
+#buscar:hover {
+    background-color: #9e3434;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+footer a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+}

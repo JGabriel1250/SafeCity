@@ -8,18 +8,35 @@
 </head>
 <body>
     <header>
-        <h1></h1>
+        <h1>SafeCity</h1>
     </header>
-    <section>
-        <div>
+    <section id="conteudo">
+        <div id="filtros">
+            <label for="estados">Estados</label>
+            <select name="estado" id="estado">
+                <option>Selecione</option>
+            </select>
 
+            <label for="cidade">Cidade</label>
+            <select name="cidad4e" id="cidade">
+                <option>Selecione</option>
+            </select>
+
+            <label for="bairro">Bairro</label>
+            <input type="text" name="bairro" id="bairro" placeholder="Digite o Bairro">
+
+            <button id="buscar">Buscar</button>
         </div>
-        <div>
+        <div id="mapa">
 
         </div>
     </section>
     <footer>
-
+        <p>Projeto educacional sobre segurança urbana</p>
+        <p>Desenvolvido por: <a href="https://github.com/JGabriel1250">José Gabriel</a></p>
     </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
