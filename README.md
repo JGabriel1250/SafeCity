@@ -17,4 +17,4 @@ Mapa interativo de segurança urbana por estado, cidade e bairro.
 Projeto educacional para aprender consumo de APIs e mapas interativos.
 
 ## Autor
-Seu Nome
+José Gabriel
