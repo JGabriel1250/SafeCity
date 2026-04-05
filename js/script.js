@@ -1,3 +1,8 @@
+const estUF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+const cidUF = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/{UF}/municipios"
+const bairUF = "https://servicodados.ibge.gov.br/api/v1/localidades/distritos/{id}/subdistritos"
+
+
 const map = L.map('map').setView([-15.793889, -47.882778], 4)
 
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -26,8 +31,17 @@ botaoBuscar.addEventListener("click", function() {
     const cidadeEscolhida = selectCidade.value
     const bairroDigitado = inputBairro.value
 
-    // Avisa no console o que foi escolhido (útil para testar)
-    console.log('Estado:', estadoEscolhido)
-    console.log('Cidade:', cidadeEscolhida)
-    console.log('Bairro:', bairroDigitado)
 })
+
+function carregarEstados() {
+    $.getJSON(estUF, function(data) {
+        let conteudo = '';
+        $.each(data, function(i, val) {
+            conteudo += `<option value="${val.id}">${val.nome}</option>`;
+        });
+        // Corrigido para #estado (igual ao HTML)
+        $("#estado").append(conteudo);
+    });
+}
+
+carregarEstados();
