@@ -34,14 +34,36 @@ botaoBuscar.addEventListener("click", function() {
 })
 
 function carregarEstados() {
-    $.getJSON(estUF, function(data) {
-        let conteudo = '';
-        $.each(data, function(i, val) {
-            conteudo += `<option value="${val.id}">${val.nome}</option>`;
-        });
-        // Corrigido para #estado (igual ao HTML)
-        $("#estado").append(conteudo);
-    });
+    fetch(estUF)
+        .then(resposta => resposta.json())
+        .then(dados => {
+            dados.forEach(estado => {
+                const option = document.createElement("option")
+                option.value = estado.id
+                option.textContent = estado.nome
+                selectEstado.appendChild(option) 
+            })
+        })
 }
 
+selectEstado.addEventListener("change", function() {
+    const uf = selectEstado.value
+
+    const url = cidUF.replace("{UF}", uf)
+
+    selectCidade.innerHTML = '<option>Selecione</option>'
+
+    fetch(url)
+        .then(resposta => resposta.json())
+        .then(dados => {
+            dados.forEach(cidade => {
+                const option = document.createElement("option")
+                option.value = cidade.nome
+                option.textContent = cidade.nome
+                selectCidade.appendChild(option)
+            })
+        })
+})
+
 carregarEstados();
+
