@@ -26,10 +26,25 @@ const inputBairro = document.getElementById('bairro')
 // Quando o usuário clicar no botão buscar, executa essa função
 botaoBuscar.addEventListener("click", function() {
 
-    // Pega o texto que o usuário escolheu/digitou
-    const estadoEscolhido = selectEstado.value
-    const cidadeEscolhida = selectCidade.value
-    const bairroDigitado = inputBairro.value
+    const estadoNome = selectEstado.options[selectEstado.selectedIndex].text
+    const cidadeNome = selectCidade.options[selectCidade.selectedIndex].text
+    const bairroNome = inputBairro.value
+
+    const busca = `${bairroNome}, ${cidadeNome}, ${estadoNome}`;
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(busca)}&format=json`
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            if (data.length > 0) {
+                const lat = data[0].lat
+                const lon = data[0].lon
+                map.setView([lat, lon], 15)
+                L.marker([lat, lon]).addTo(map)
+            } else {
+                alert("Local não encontrado")
+            }
+        })
 
 })
 
@@ -64,6 +79,7 @@ selectEstado.addEventListener("change", function() {
             })
         })
 })
+
 
 carregarEstados();
 
