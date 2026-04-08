@@ -23,6 +23,10 @@ const selectEstado = document.getElementById('estado')
 const selectCidade = document.getElementById('cidade')
 const inputBairro = document.getElementById('bairro')
 
+// variável global para guardar o último marcador
+
+let marcadorAtual = null
+
 // Quando o usuário clicar no botão buscar, executa essa função
 botaoBuscar.addEventListener("click", function() {
 
@@ -40,7 +44,12 @@ botaoBuscar.addEventListener("click", function() {
                 const lat = data[0].lat
                 const lon = data[0].lon
                 map.setView([lat, lon], 15)
-                L.marker([lat, lon]).addTo(map)
+
+                if (marcadorAtual) {
+                    map.removeLayer(marcadorAtual)
+                }
+
+                marcadorAtual = L.marker([lat, lon]).addTo(map)
             } else {
                 alert("Local não encontrado")
             }
