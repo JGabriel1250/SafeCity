@@ -26,8 +26,10 @@ const inputBairro = document.getElementById('bairro')
 // variável global para guardar o último marcador
 
 let marcadorAtual = null
+let areaAtual = null 
 
 // Quando o usuário clicar no botão buscar, executa essa função
+// Variável global aqui serve para manter estado entre execuções
 botaoBuscar.addEventListener("click", function() {
 
     const estadoNome = selectEstado.options[selectEstado.selectedIndex].text
@@ -35,7 +37,8 @@ botaoBuscar.addEventListener("click", function() {
     const bairroNome = inputBairro.value
 
     const busca = `${bairroNome}, ${cidadeNome}, ${estadoNome}`;
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(busca)}&format=json`
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(busca)}&format=json&polygon_geojson=1`
+
 
     fetch(url)
         .then(res => res.json())
@@ -50,6 +53,27 @@ botaoBuscar.addEventListener("click", function() {
                 }
 
                 marcadorAtual = L.marker([lat, lon]).addTo(map)
+
+                if (areaAtual) {
+                    map.removeLayer(areaAtual)
+                }
+
+                if (data[0].geojson !== undefined) {
+                    areaAtual = L.geoJSON(data[0].geojson, {
+                        style: {
+                            color: 'red',
+                            weight: 2,
+                            fillOpacity: 0.2
+                        }
+                    }).addTo(map)
+                } else {
+                    areaAtual = L.circle([lat, lon], {
+                        color: 'red',
+                        fillColor: '#f03',
+                        fillOpacity: 0.3,
+                        radius: 500
+                    }).addTo(map)
+                }
             } else {
                 alert("Local não encontrado")
             }
