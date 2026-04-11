@@ -34,8 +34,14 @@ botaoBuscar.addEventListener("click", function() {
 
     const estadoNome = selectEstado.options[selectEstado.selectedIndex].text
     const cidadeNome = selectCidade.options[selectCidade.selectedIndex].text
-    const bairroNome = inputBairro.value
+    const bairroNome = inputBairro.value.trim()
 
+    if (!cidadeNome || cidadeNome === "Selecione") {
+        alert("Selecione uma cidade")
+        return
+    }
+
+    if (bairroNome) {
     const busca = `${bairroNome}, ${cidadeNome}, ${estadoNome}`;
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(busca)}&format=json&polygon_geojson=1`
 
@@ -78,8 +84,32 @@ botaoBuscar.addEventListener("click", function() {
                 alert("Local não encontrado")
             }
         })
-
+    } else {
+        mostrarDadosCidade(cidadeNome)
+    }
 })
+
+function mostrarDadosCidade(cidade) {
+    const div = document.getElementById("ocorrencias")
+
+    if (!div) {
+        console.error("Div #ocorrencias não encontrada")
+        return
+    }
+
+    const dados = {
+        total: Math.floor(Math.random() * 100),
+        roubos: Math.floor(Math.random() * 50),
+        furtos: Math.floor(Math.random() * 50)
+    }
+
+    div.innerHTML = `
+    <h3>Dados de segurança - ${cidade}</h3>
+        <p>Total: ${dados.total}</p>
+        <p>Roubos: ${dados.roubos}</p>
+        <p>Furtos: ${dados.furtos}</p>
+    `
+}
 
 function carregarEstados() {
     fetch(estUF)

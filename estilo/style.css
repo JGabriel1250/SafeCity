@@ -79,6 +79,11 @@ select, #bairro{
     display: block;
 }
 
+#ocorrencias {
+    text-align: center;
+    font-weight: bold;
+}
+
 footer {
     text-align: center;
     padding: 20px;
